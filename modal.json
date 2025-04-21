@@ -1,0 +1,11 @@
+{
+    "app_id": "podcast-project",
+    "app_name": "podcast-summarizer",
+    "functions": {
+        "process_podcast": {
+            "image": "python:3.11",
+            "memory": 4096,
+            "timeout": 300
+        }
+    }
+} 

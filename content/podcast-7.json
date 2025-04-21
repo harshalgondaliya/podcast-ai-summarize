@@ -1,0 +1,18 @@
+{
+    "podcast_summary": "No episodes found in the RSS feed. Please check the URL and try again.",
+    "podcast_highlights": "",
+    "podcast_details": {
+        "podcast_title": "Error",
+        "episode_title": "Error processing feed",
+        "episode_image": ""
+    },
+    "podcast_guest": {
+        "name": "",
+        "job": "",
+        "wiki_img": "",
+        "wiki_title": "",
+        "wiki_summary": "",
+        "wiki_url": "",
+        "google_URL": ""
+    }
+}

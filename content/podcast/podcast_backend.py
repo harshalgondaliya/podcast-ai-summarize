@@ -1,4 +1,7 @@
 import modal
+import modal.Stub as Stub
+import modal.Image as Image
+import modal.Secret as Secret
 
 def download_whisperX():
   # Load the WhisperX model
@@ -13,23 +16,34 @@ def download_whisperX():
   _ = whisperx.load_model("medium", device, compute_type=compute_type)
 
 stub = modal.Stub("podcast-project")
-podcast_image = modal.Image.debian_slim().pip_install("feedparser",
-                                                     "requests",
-                                                     "ffmpeg",
-                                                     "openai",
-                                                     "tiktoken",
-                                                     "wikipedia",
-                                                     "ffmpeg-python",
-                                                     "googlesearch-python"
-                                                     ).apt_install("git","ffmpeg")
+podcast_image = (
+    modal.Image.debian_slim()
+    .pip_install(
+        "feedparser",
+        "requests",
+        "ffmpeg",
+        "openai",
+        "tiktoken",
+        "wikipedia",
+        "ffmpeg-python",
+        "googlesearch-python"
+    )
+    .apt_install("git", "ffmpeg")
+)
 
-podcast_image = podcast_image.pip_install("torch",
-                                        "torchvision",
-                                        "torchaudio",
-                                        index_url="https://download.pytorch.org/whl/cu118")
+podcast_image = (
+    podcast_image.pip_install(
+        "torch",
+        "torchvision",
+        "torchaudio",
+        index_url="https://download.pytorch.org/whl/cu118"
+    )
+)
 
-podcast_image = podcast_image.pip_install("git+https://github.com/m-bain/whisperx.git"
-                                        ).run_function(download_whisperX)
+podcast_image = (
+    podcast_image.pip_install("git+https://github.com/m-bain/whisperx.git")
+    .run_function(download_whisperX)
+)
 
 
 @stub.function(image=podcast_image, gpu="any", timeout=600)
@@ -100,7 +114,7 @@ def get_transcribe_podcast(rss_url, local_path):
   output['episode_transcript'] = result['text']
   return output
 
-@stub.function(image=podcast_image, secret=modal.Secret.from_name("my-openai-secret"))
+@stub.function(image=podcast_image, secret=Secret.from_name("my-openai-secret"))
 def get_podcast_summary(podcast_transcript):
   import openai
   # Check token size
@@ -129,7 +143,7 @@ def get_podcast_summary(podcast_transcript):
   podcastSummary = chatOutput.choices[0].message.content
   return podcastSummary
 
-@stub.function(image=podcast_image, secret=modal.Secret.from_name("my-openai-secret"))
+@stub.function(image=podcast_image, secret=Secret.from_name("my-openai-secret"))
 def get_podcast_guest(podcast_transcript):
   import openai
   import wikipedia
@@ -200,7 +214,7 @@ def get_podcast_guest(podcast_transcript):
 
   return podcastGuest
 
-@stub.function(image=podcast_image, secret=modal.Secret.from_name("my-openai-secret"))
+@stub.function(image=podcast_image, secret=Secret.from_name("my-openai-secret"))
 def get_podcast_highlights(podcast_transcript):
   import openai
   # Check token size
@@ -238,7 +252,7 @@ def get_podcast_highlights(podcast_transcript):
   podcastHighlights = chatOutput.choices[0].message.content
   return podcastHighlights
 
-@stub.function(image=podcast_image, secret=modal.Secret.from_name("my-openai-secret"), timeout=1200)
+@stub.function(image=podcast_image, secret=Secret.from_name("my-openai-secret"), timeout=1200)
 def process_podcast(url, path):
   output = {}
   podcast_details = get_transcribe_podcast.remote(url, path)
