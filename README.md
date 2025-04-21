@@ -166,8 +166,3 @@ To run this project locally, follow these steps:
 3. Implement your feature and make necessary changes.
 4. Commit and push your changes: `git commit -m "Add feature" && git push origin feature-name`.
 5. Submit a pull request detailing the changes you've made.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
