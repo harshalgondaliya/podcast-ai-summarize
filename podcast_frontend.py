@@ -81,10 +81,21 @@ def display_podcast_info(podcast_info):
             st.subheader(podcast_info['podcast_details']['episode_title'])
 
         with col2:
-            # Simple image display
+            # Handle image display with error handling
             image_url = podcast_info['podcast_details']['episode_image']
             if image_url and image_url.strip():
-                st.image(image_url)
+                try:
+                    # Download the image
+                    response = requests.get(image_url, stream=True)
+                    if response.status_code == 200:
+                        # Convert the image to bytes
+                        image_bytes = response.content
+                        # Display the image
+                        st.image(image_bytes)
+                    else:
+                        st.warning("Could not load podcast image")
+                except Exception as e:
+                    st.warning(f"Error loading image: {str(e)}")
 
         # Summary
         st.subheader("Summary")
