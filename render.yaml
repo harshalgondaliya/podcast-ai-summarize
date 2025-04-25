@@ -3,7 +3,7 @@ services:
     name: podcast-summarizer
     env: python
     buildCommand: |
-      pip install -r requirements.txt
+      pip install --no-cache-dir -r requirements.txt
       mkdir -p content
     startCommand: streamlit run podcast_frontend.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
     envVars:
@@ -17,4 +17,7 @@ services:
         value: 0.0.0.0
     plan: starter
     healthCheckPath: /
-    autoDeploy: true 
+    autoDeploy: true
+    build:
+      maxBuildTime: 1800
+      maxBuildSize: 2048 
