@@ -11,11 +11,13 @@ A powerful AI-powered tool that automatically summarizes podcast episodes by ana
 - **Guest Information Extraction**: Automatically identifies and extracts guest information
 - **Key Moments Highlighting**: Identifies and highlights important moments in the episode
 - **Beautiful UI**: Clean and intuitive interface for easy navigation
-- **Cloud Deployment**: Accessible anywhere through Streamlit Cloud
+- **Cloud Deployment**: Accessible anywhere through Streamlit Cloud and Render
 
 ## 🚀 Live Demo
 
-Try the app live: [Podcast AI Summarizer](https://podcast-ai-summarize.streamlit.app/)
+Try the app live:
+- [Podcast AI Summarizer (Streamlit)](https://podcast-ai-summarize.streamlit.app/)
+- [Podcast AI Summarizer (Render)](https://podcast-ai-summarize.onrender.com/)
 
 ## 🔍 Find Podcast RSS Feeds
 
