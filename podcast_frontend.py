@@ -9,14 +9,25 @@ import re
 from urllib.parse import urlparse
 import time
 
-def main():
-    # Set page config
-    st.set_page_config(
-        page_title="Podcast Summarizer",
-        page_icon="🎙️",
-        layout="wide"
-    )
+# Configure Streamlit for deployment
+st.set_page_config(
+    page_title="Podcast Summarizer",
+    page_icon="🎙️",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
+# Set environment variables for deployment
+if os.environ.get('PORT'):
+    st.config.serverPort = int(os.environ.get('PORT'))
+    st.config.serverAddress = '0.0.0.0'
+    st.config.serverHeadless = True
+
+# Ensure content directory exists
+if not os.path.exists('content'):
+    os.makedirs('content')
+
+def main():
     # Simple title
     st.title("Podcast Summarizer")
 
